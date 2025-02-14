@@ -1,5 +1,9 @@
+'''
+This script trains Logistic Regression model and saves it as a FHE Model.
+'''
+
 from concrete.ml.sklearn import LogisticRegression
-from concrete.ml.deployment import FHEModelDev, FHEModelClient, FHEModelServer
+from concrete.ml.deployment import FHEModelDev
 import numpy as np
 
 fhe_directory = '/tmp/fhe_client_server_files/'
