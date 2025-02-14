@@ -1,5 +1,5 @@
 '''
-This file is the server side of the FHE model server. It is responsible for receiving 
+This file is the API side of the FHE model. It is responsible for receiving 
 encrypted data from the client, running the model, and returning the encrypted result to the client.
 '''
 

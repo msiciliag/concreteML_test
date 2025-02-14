@@ -1,15 +1,15 @@
 # Fully Homomorphic Encryption (FHE) Simple Model Deployment
 
-This project demonstrates the use of the `concrete.ml` library to train a logistic regression model, deploy it on a server, and perform encrypted predictions on very simple data using Fully Homomorphic Encryption (FHE).
+This project demonstrates a *basic* example of using the `concrete-ml` library to train a logistic regression model, deploy it using a Flask server, and perform encrypted predictions using Fully Homomorphic Encryption (FHE).
 
-> **_NOTE:_**  Not intended for production use. Educational purposes only.
+**IMPORTANT:** This project is intended for *educational purposes only* and is **not** production-ready.  It uses a simplified setup and a Flask development server, not suitable for production environments.
 
 ## Project Structure
 
 - `app.py`: Implements the server that receives encrypted data, runs the model, and returns the encrypted results.
 - `client.py`: Client script that sends encrypted data to the server and receives the encrypted response.
 - `train.py`: Script to train and compile the logistic regression model.
-- `test_no_flask.py`: Tests the deployment module of `concrete.ml` without using REST API requests.
+- `test_no_flask.py`: Tests the deployment module of `concrete.ml` without using the REST API.
 
 ## Requirements
 
@@ -45,7 +45,7 @@ rm -rf /tmp/fhe_client_server_files/
 
 ### Start the Server
 
-Run the `app.py` script to start the server (by default, it runs on port 5001).
+Run the `app.py` script to start the server (runs on port 5001).
 
 
 ### Send Request with Encrypted Data
