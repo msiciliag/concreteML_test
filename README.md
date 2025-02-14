@@ -43,19 +43,19 @@ To clean up the model files, run the following command:
 rm -rf /tmp/fhe_client_server_files/
 ```
 
-### Start the Server
+### Start the Flask Server
 
-Run the `app.py` script to start the server (runs on port 5001).
+Run the `app.py` script to start the Flask server (runs on port 5001).
 
 
 ### Send Request with Encrypted Data
 
-Run the `client.py` script to send encrypted data to the server and receive the encrypted response.
+Run the `client.py` script to send encrypted data to the Flask server and receive the encrypted response.
 
 
 ### Check Results without Using the Server
 
-To check the results without using the server, you can run the `test_no_flask.py` script to test the deployment module of `concrete.ml` without using REST API requests.
+To check the results without using Flask, you can run the `test_no_flask.py` script to test the deployment module of `concrete.ml` without using REST API requests.
 
 **_NOTE:_**  `test_no_flask.py` and `client.py` should give the same results as they are using the same data and model.
 
