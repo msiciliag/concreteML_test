@@ -6,7 +6,7 @@ This project demonstrates a *basic* example of using the `concrete-ml` library t
 
 ## Project Structure
 
-- `app.py`: Implements the server that receives encrypted data, runs the model, and returns the encrypted results.
+- `app.py`: Implements the API that receives encrypted data, runs the model, and returns the encrypted results.
 - `client.py`: Client script that sends encrypted data to the server and receives the encrypted response.
 - `train.py`: Script to train and compile the logistic regression model.
 - `test_no_flask.py`: Tests the deployment module of `concrete.ml` without using the REST API.
