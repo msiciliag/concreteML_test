@@ -27,8 +27,8 @@ This project demonstrates a *basic* example of using the `concrete-ml` library t
 2. Install the dependencies:
     ```sh
     python -m venv venv
-    pip install -r requirements.txt
     source venv/bin/activate
+    pip install -r requirements.txt
     ```
 
 ## Usage
