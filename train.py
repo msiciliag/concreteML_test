@@ -8,7 +8,7 @@ from ucimlrepo import fetch_ucirepo
 from sklearn.model_selection import train_test_split
 
 import time
-from sklearn.metrics import f1_score, accuracy_score, roc_auc_score, classification_report, confusion_matrix
+from sklearn.metrics import f1_score, accuracy_score, roc_auc_score
 
 print("Starting FHE Random Forest training process...")
 
@@ -24,7 +24,7 @@ cdc_diabetes_health_indicators = fetch_ucirepo(id=891)
 X = cdc_diabetes_health_indicators.data.features
 y = cdc_diabetes_health_indicators.data.targets
 X = X.astype('float64')
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.0001, random_state=42)
 
 print("\nFeature data types:")
 print(X.dtypes)
