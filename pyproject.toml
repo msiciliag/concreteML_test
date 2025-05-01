@@ -1,0 +1,11 @@
+[project]
+name = "concreteml-test"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "ucimlrepo>=0.0.7",
+    "scikit-learn",
+    "concrete-ml"
+]
