@@ -4,8 +4,7 @@ encrypted data from the client, running the model, and returning the encrypted r
 '''
 
 from concrete.ml.deployment import FHEModelServer
-from  flask import Flask, request
-import base64
+from flask import Flask, request
 
 fhe_directory = '/tmp/fhe_client_server_files/'
 
@@ -16,16 +15,13 @@ app = Flask(__name__)
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    encrypted_data_b64 = request.data
-    serialized_evaluation_keys_b64 = request.headers.get('Evaluation-Keys')
-
-    encrypted_data = base64.b64decode(encrypted_data_b64)
-    serialized_evaluation_keys = base64.b64decode(serialized_evaluation_keys_b64)
+    
+    encrypted_data = request.data
+    serialized_evaluation_keys = request.headers.get('Evaluation-Keys').encode('utf-8')
     
     encrypted_result = server.run(encrypted_data, serialized_evaluation_keys)
-    encrypted_result_b64 = base64.b64encode(encrypted_result).decode('utf-8')
-
-    return encrypted_result_b64
+    
+    return encrypted_result, 200, {'Content-Type': 'application/octet-stream'}
 
 if __name__ == '__main__':
-    app.run(port=5001,debug=True)
+    app.run(port=5001, debug=True)
