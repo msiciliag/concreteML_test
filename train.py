@@ -40,6 +40,7 @@ print(cdc_diabetes_health_indicators.variables)
 print("\nTraining model...")
 model.fit(X_train, y_train)
 
+print("\nPredicting with clear model...")
 results = {}
 tic = time.perf_counter()
 y_pred_clear = model.predict(X_test)
@@ -48,11 +49,17 @@ results["prediction_time_clear"] = toc - tic
 results["accuracy_clear"] = accuracy_score(y_test, y_pred_clear)
 results["f1_clear"] = f1_score(y_test, y_pred_clear)
 results["auc_clear"] = roc_auc_score(y_test, y_pred_clear)
+print("\nClear model evaluation:")
+print(f"Test set size: {X_test.shape[0]} samples")
+print(f"Accuracy: {results['accuracy_clear']:.4f}")
+print(f"F1 Score: {results['f1_clear']:.4f}")
+print(f"AUC: {results['auc_clear']:.4f}")
+print(f"Prediction time: {results['prediction_time_clear']:.4f} seconds")
 
 print("\nCompiling model for FHE...")
 model.compile(X)
 
-# Predictions with FHE model
+print("\nPredicting with FHE model...")
 tic = time.perf_counter()
 y_pred_fhe = model.predict(X_test, fhe="execute")
 toc = time.perf_counter()
@@ -60,8 +67,15 @@ results["prediction_time_fhe"] = toc - tic
 results["accuracy_fhe"] = accuracy_score(y_test, y_pred_fhe)
 results["f1_fhe"] = f1_score(y_test, y_pred_fhe)
 results["auc_fhe"] = roc_auc_score(y_test, y_pred_fhe)
+print("\nFHE model evaluation:")
+print(f"Test set size: {X_test.shape[0]} samples")
+print(f"Accuracy: {results['accuracy_fhe']:.4f}")
+print(f"F1 Score: {results['f1_fhe']:.4f}")
+print(f"AUC: {results['auc_fhe']:.4f}")
+print(f"Prediction time: {results['prediction_time_fhe']:.4f} seconds")
 
 print("\nSaving FHE model...")
+print("Model classes:", model.classes_)
 dev = FHEModelDev(path_dir=fhe_directory, model=model)
 dev.save()
 print("FHE model saved successfully!")
