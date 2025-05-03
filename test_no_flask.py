@@ -5,14 +5,11 @@ This script tests the FHE concrete.ml.deployment module without using REST API r
 from concrete.ml.deployment import FHEModelClient, FHEModelServer
 import numpy as np
 
-fhe_directory = '/tmp/fhe_client_server_files/'
+FHE_DIRECTORY = '/tmp/fhe_client_server_files/'
+client = FHEModelClient(path_dir=FHE_DIRECTORY, key_dir="/tmp/keys_client")
+server = FHEModelServer(path_dir=FHE_DIRECTORY)
 
-client = FHEModelClient(path_dir=fhe_directory, key_dir="/tmp/keys_client")
-serialized_evaluation_keys = client.get_serialized_evaluation_keys()
-
-server = FHEModelServer(path_dir=fhe_directory)
-server.load()
-
+#example data (ai generated)
 X_new = np.array([[
     1,  # HighBP (presión alta)
     0,  # HighChol (sin colesterol alto)
@@ -37,8 +34,14 @@ X_new = np.array([[
     6   # Income (nivel de ingresos: 6 = $50,000-$74,999)
 ]])
 
+#client encrypts data
 encrypted_data = client.quantize_encrypt_serialize(X_new)
-encrypted_result = server.run(encrypted_data, serialized_evaluation_keys)
-result = client.deserialize_decrypt_dequantize(encrypted_result)
+serialized_evaluation_keys = client.get_serialized_evaluation_keys()
 
+#server infers over encrypted data using evaluation keys
+server.load()
+encrypted_result = server.run(encrypted_data, serialized_evaluation_keys)
+
+#client decrypts result
+result = client.deserialize_decrypt_dequantize(encrypted_result)
 print(result)

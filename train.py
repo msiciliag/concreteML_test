@@ -1,5 +1,5 @@
 '''
-This script trains Random Forest Classifier model and saves it as a FHE Model.
+This script trains a Random Forest Classifier model and saves it following the ConcreteML deployment schema.
 '''
 
 from concrete.ml.sklearn import RandomForestClassifier
