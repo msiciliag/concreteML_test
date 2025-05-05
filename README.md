@@ -14,7 +14,7 @@ This project demonstrates a *basic* example of using the `concrete-ml` library t
 ## Requirements
 
 - Python 3.8+
-- Libraries: `concrete-ml==1.8.0`, `numpy`, `requests`, `flask`
+- Libraries: `concrete-ml`, `numpy`, `requests`, `flask`
 
 ## Installation
 
