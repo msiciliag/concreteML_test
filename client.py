@@ -20,61 +20,85 @@ def make_request(client, X_new):
     }
 
     encrypted_response = requests.post(
-        "http://127.0.0.1:5001/predict",
+        "http://127.0.0.1:5005/predict",
         files=files
     )
 
     return client.deserialize_decrypt_dequantize(encrypted_response.content)
 
 #examples (ai generated)
-X_low_risk = np.array([[
-    1,  # HighBP (presión alta)
-    0,  # HighChol (sin colesterol alto)
-    1,  # CholCheck (chequeo de colesterol realizado)
-    25, # BMI (índice de masa corporal)
-    0,  # Smoker (no fumador)
-    0,  # Stroke (sin historial de derrame cerebral)
-    0,  # HeartDiseaseorAttack (sin enfermedad cardíaca)
-    1,  # PhysActivity (actividad física realizada)
-    1,  # Fruits (consume frutas diariamente)
-    1,  # Veggies (consume vegetales diariamente)
-    0,  # HvyAlcoholConsump (no consumo excesivo de alcohol)
-    1,  # AnyHealthcare (tiene cobertura médica)
-    0,  # NoDocbcCost (no tuvo problemas para pagar al médico)
-    3,  # GenHlth (salud general: 3 = buena)
-    2,  # MentHlth (días con problemas de salud mental en el último mes)
-    0,  # PhysHlth (días con problemas de salud física en el último mes)
-    0,  # DiffWalk (sin dificultad para caminar)
-    1,  # Sex (1 = masculino)
-    35, # Age (categoría de edad, por ejemplo, 35 = 35-39 años)
-    4,  # Education (nivel educativo: 4 = graduado universitario)
-    6   # Income (nivel de ingresos: 6 = $50,000-$74,999)
-]])
+X_low_risk =  np.array([[
+    # --- Medias ---
+    11.5,  # radius_mean
+    16.0,  # texture_mean
+    75.0,  # perimeter_mean
+    400.0, # area_mean
+    0.090, # smoothness_mean
+    0.080, # compactness_mean
+    0.040, # concavity_mean
+    0.020, # concave points_mean
+    0.170, # symmetry_mean
+    0.060, # fractal_dimension_mean
+    # --- Errores Estándar (SE) ---
+    0.25,  # radius_se
+    0.9,   # texture_se
+    1.8,   # perimeter_se
+    20.0,  # area_se
+    0.006, # smoothness_se
+    0.018, # compactness_se
+    0.020, # concavity_se
+    0.008, # concave points_se
+    0.015, # symmetry_se
+    0.0025,# fractal_dimension_se
+    # --- "Peores" o Máximos ---
+    13.0,  # radius_worst
+    20.0,  # texture_worst
+    85.0,  # perimeter_worst
+    520.0, # area_worst
+    0.120, # smoothness_worst
+    0.180, # compactness_worst
+    0.150, # concavity_worst
+    0.070, # concave points_worst
+    0.270, # symmetry_worst
+    0.075  # fractal_dimension_worst
+]], dtype=np.float64)
 result_low_risk = make_request(client, X_low_risk)
-print(result_low_risk)
+print(f"Low risk malignant diagnosis example: ", result_low_risk)
 
-X_normal_risk = np.array([[
-    1,  # HighBP
-    1,  # HighChol
-    1,  # CholCheck
-    40, # BMI (higher BMI for higher risk)
-    1,  # Smoker
-    1,  # Stroke
-    1,  # HeartDiseaseorAttack
-    0,  # PhysActivity (no physical activity)
-    0,  # Fruits (does not consume fruits)
-    0,  # Veggies (does not consume vegetables)
-    1,  # HvyAlcoholConsump (heavy alcohol consumption)
-    0,  # AnyHealthcare (no healthcare coverage)
-    1,  # NoDocbcCost (could not afford doctor)
-    5,  # GenHlth (poor general health)
-    15, # MentHlth (many days with mental health issues)
-    20, # PhysHlth (many days with physical health issues)
-    1,  # DiffWalk (difficulty walking)
-    0,  # Sex (0 = female)
-    65, # Age (older age category, e.g., 65-69 years)
-    1,  # Education (lower education level)
-    1   # Income (lower income level)
-]])
-result_high_risk = make_request(client, X_normal_risk)
-print(result_high_risk)
+X_high_risk = np.array([[
+    # --- Medias ---
+    20.0,  # radius_mean
+    25.0,  # texture_mean
+    130.0, # perimeter_mean
+    1200.0,# area_mean
+    0.110, # smoothness_mean
+    0.180, # compactness_mean
+    0.200, # concavity_mean
+    0.100, # concave points_mean
+    0.210, # symmetry_mean
+    0.070, # fractal_dimension_mean
+    # --- Errores Estándar (SE) ---
+    0.70,  # radius_se
+    1.5,   # texture_se
+    5.0,   # perimeter_se
+    80.0,  # area_se
+    0.009, # smoothness_se
+    0.040, # compactness_se
+    0.050, # concavity_se
+    0.018, # concave points_se
+    0.025, # symmetry_se
+    0.005, # fractal_dimension_se
+    # --- "Peores" o Máximos ---
+    25.0,  # radius_worst
+    33.0,  # texture_worst
+    160.0, # perimeter_worst
+    1800.0,# area_worst
+    0.150, # smoothness_worst
+    0.400, # compactness_worst
+    0.500, # concavity_worst
+    0.200, # concave points_worst
+    0.350, # symmetry_worst
+    0.100  # fractal_dimension_worst
+]], dtype=np.float64)
+result_high_risk = make_request(client, X_high_risk)
+print(f"High risk malignant diagnosis example: ", result_high_risk)
